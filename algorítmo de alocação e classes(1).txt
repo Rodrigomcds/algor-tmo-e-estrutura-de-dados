@@ -38,6 +38,7 @@ class matriz{
             for(i=0;i<*h;i++){
                 delete mxn[i];
             }
+            delete[] mxn;
         }
 
     private:
