@@ -1,0 +1,2 @@
+	**Ponteiros** são variáveis que armazenam
+_endereços de memórias_ ou _outras variáveis_.

@@ -1,0 +1,4 @@
+	Um **ponteiro** é uma variável de determinado tipo,
+ com a capacidade de armazenar um endereço de memória ou uma
+ outra variável.
+	[referencias](https://www.inf.pucrs.br/~pinho/PRGSWB/Ponteiros/ponteiros.html)
