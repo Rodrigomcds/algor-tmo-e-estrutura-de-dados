@@ -1,0 +1,143 @@
+#include <iostream>
+
+using namespace std;
+
+class matriz{
+
+
+    public:
+        int m,n;
+        matriz(int a,int b){
+        mxn = new int*[a];
+        for(i=0;i<a;i++){
+            mxn[i]=new int[b];
+        }
+        h=&a;
+        m=a;
+        n=b;
+        }
+
+        void valor_matriz(int a,int b)
+        {
+            int j,k;
+            for(j=0;j<a;j++)
+            {
+                for(k=0;k<b;k++){
+                    mxn[j][k] = j*k;
+
+                }
+
+            }
+
+        }
+
+        matriz& operator = (const matriz& k)
+        {
+            if (this != &k)
+            {
+                this -> m = k.m;
+                this -> n = k.n;
+
+                mxn = new int* [m];
+                for (i=0; i < m; i++)
+                {
+                    mxn[i] = new int [n];
+                }
+
+                for(i = 0; i < m; i++)
+                    for(int j = 0; j < n; j++)
+                        mxn[i][j] = k.mxn[i][j];
+            }
+            return *this;
+        };
+
+        int *operator[](int l)
+        {
+            return mxn[l];
+        }
+
+        ~matriz()
+        {
+            for(i=0;i<*h;i++){
+                delete mxn[i];
+            }
+            delete[] mxn;
+        }
+
+        void numat1();
+        void numat2();
+        void lermat();
+
+    private:
+        int **mxn,i,*h;
+
+};
+
+    void matriz::numat1()
+    {
+        for(i = 0;i < m;i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                mxn[i][j] = i*j;
+            }
+        }
+
+    }
+
+    void matriz::numat2()
+    {
+        for(i = 0;i < m;i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                mxn[i][j] = i+j;
+            }
+        }
+
+    }
+
+    void matriz::lermat()
+    {
+        for(i = 0;i < m;i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                cout << mxn[i][j] << " ";
+            }
+            cout << endl;
+        }
+
+    }
+
+
+int main()
+{
+    int a,b,s = 100,f = 100;
+    cout << "Digite o numero de linhas: " << endl;
+    cin >> a;
+    cout << "Digite o numero de colunas: " << endl;
+    cin >> b;
+
+    matriz primeiramatriz(a, b), segundamatriz(primeiramatriz), terceiramatriz(s,f);
+
+    primeiramatriz.numat1();
+    segundamatriz.numat2();
+    terceiramatriz.numat2();
+
+    terceiramatriz = primeiramatriz;
+
+    cout << endl << "  Primeira Matriz: " << endl;
+    primeiramatriz.lermat();
+    cout << endl;
+
+    cout << "  Segunda Matriz: " << endl;
+    segundamatriz.lermat();
+    cout << endl;
+
+    cout << "  Terceira Matriz: " << endl;
+    terceiramatriz.lermat();
+    cout << endl;
+
+    return 0;
+}
