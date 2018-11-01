@@ -1,0 +1,217 @@
+#include <iostream>
+
+using namespace std;
+
+class matriz{
+
+
+    public:
+
+        void construtor(int a,int b,int ***mxn);
+        void destrutor(int **mxn);
+        Matriz(int li, int co);
+
+        ~matriz();
+        int linha(){
+            return lin;
+        }
+        int coluna(){
+            return col;
+        }
+
+        int *operator[](int l)
+        {
+            return mxn[l];
+        }
+        void numat1(matriz& mxn);
+        void Matriz(matriz& Matrix2);
+        void operator=(matriz &mat);
+        matriz& operator-(matriz &oper);
+        matriz& operator+(matriz &oper);
+        matriz& operator*(matriz &oper);
+
+        friend ostream & operator<<(ostream &os,matriz& primeiramatriz){
+            int li=primeiramatriz.linha();
+            int co=primeiramatriz.coluna();
+
+            for(int i=0;i<li;i++){
+                for(int j=0;j<co;j++){
+                    cout<<" " << " " << primeiramatriz[i][j];
+                }
+            cout<<endl;
+        }
+        return os;
+    }
+
+    private:
+        int **mxn,lin,col;
+
+};
+
+    void matriz::construtor(int a,int b,int ***mxn){
+      int **Mat;
+      Mat = new int*[a];
+      for(int i=0;i<a;i++){
+        Mat[i]=new int[b];
+    }
+    *mxn = Mat;
+}
+    void matriz::destrutor(int **mxn){
+        for(int i=0;i<lin;i++){
+        delete[] mxn[i];
+        }
+        delete[] mxn;
+}
+
+    void matriz::numat1(matriz& mxn)
+    {
+        int li=mxn.linha();
+        int co=mxn.coluna();
+
+        for(int i = 0;i < li;i++)
+        {
+            for(int j = 0; j < co; j++)
+            {
+                mxn[i][j] = i*j;
+            }
+        }
+
+    }
+
+    void matriz::Matriz(matriz& Matrix2)
+    {
+        int li = Matrix2.linha();
+        int co = Matrix2.coluna();
+        for(int i = 0;i < li;i++)
+        {
+            for(int j = 0; j < co; j++)
+            {
+                mxn[i][j] = i+j;
+            }
+        }
+
+    }
+
+   void matriz::operator=(matriz &mat){
+
+    int pLinha= mat.linha();
+    int pColuna = mat.coluna();
+    destrutor(mxn);
+    construtor(pLinha,pColuna,&mxn);
+
+    for(int i=0; i< pLinha; i++){
+
+        for(int j=0; j< pColuna; j++){
+            mxn[i][j] = mat[i][j];
+        }
+    }
+
+    matriz& matriz::operator-(matriz &oper){ // n consigo entender esse erro :/
+
+    int Linha=oper.linha();
+    int Coluna=oper.coluna();
+
+    this->Linha=Linha;
+    this->Coluna=Coluna;
+
+    matriz Nova(Linha,Coluna);
+    numat1(Nova);
+
+    cout<<Nova<<endl;
+    for(int i=0;i<Linha;i++){
+        for(int j=0;j<Coluna;j++){
+            Nova.matriz[i][j]=matriz[i][j]-oper[i][j];
+        }
+    }
+    cout<<Nova<<endl;
+    return Nova;
+}
+
+    matriz& matriz::operator+(matriz &oper){
+
+    int Linha=oper.linha();
+    int Coluna=oper.coluna();
+
+    this->Linha=Linha;
+    this->Coluna=Coluna;
+
+    matriz Nova(Linha,Coluna);
+    numat1(Nova);
+
+    cout<<Nova<<endl;
+    for(int i=0;i<Linha;i++){
+        for(int j=0;j<Coluna;j++){
+            Nova.matriz[i][j]=matriz[i][j]+oper[i][j];
+        }
+    }
+    cout<<Nova<<endl;
+    return Nova;
+}
+
+    matriz& matriz::operator*(matriz &oper){
+
+    int Linha=oper.linha();
+    int Coluna=oper.coluna();
+
+    this->Linha=Linha;
+    this->Coluna=Coluna;
+
+    matriz Nova(Linha,Coluna);
+    numat1(Nova);
+
+    cout<<Nova<<endl;
+    for(int i=0;i<Linha;i++){
+        for(int j=0;j<Coluna;j++){
+            Nova.matriz[i][j]=matriz[i][j]*oper[i][j];
+        }
+    }
+    cout<<Nova<<endl;
+    return Nova;
+}
+
+    void lermat(matriz &Mat){
+
+        int Linha = Mat.linha();
+        int Coluna = Mat.coluna();
+        for(int i=0; i < Linha; i++){
+            cout<<endl;
+            for(int j=0; j < Coluna; j++){
+                cout<<"-"<<Mat[i][j];
+            }
+        }
+        cout<<endl;
+    }
+
+
+int main()
+{
+    int a,b;
+    cout << "Digite o numero de linhas: " << endl;
+    cin >> a;
+    cout << "Digite o numero de colunas: " << endl;
+    cin >> b;
+
+    matriz primeiramatriz(a,b);
+    numat1(primeiramatriz);
+    cout<<primeiramatriz<<endl;
+
+    cout << "Digite o numero de linhas: " << endl;
+    cin >> a;
+    cout << "Digite o numero de colunas: " << endl;
+    cin >> b;
+
+    matriz segundamatriz(a,b);
+    segundamatriz = primeiramatriz;
+
+    cout<<segundamatriz<<endl;
+
+    matriz terceiramatriz(a,b);
+
+    cout<<terceiramatriz<<endl;
+    terceiramatriz = primeiramatriz;
+
+    matriz quartamatriz(terceiramatriz - segundamatriz);
+    cout<<quartamatriz<<endl;
+
+    return 0;
+}
