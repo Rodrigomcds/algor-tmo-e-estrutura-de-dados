@@ -1,0 +1,83 @@
+#include <iostream>
+#include "gtest/gtest.h"
+#include <iostream>
+#include <vector>
+#include <random>
+
+using namespace std;
+
+
+int sizevector(vector<int> *vetordaing)
+{
+    int contador=0;
+    for(int i=0;i<vetordaing->size();i++)
+    {
+        contador++;
+    }
+
+    return contador;
+}
+
+int Buscaingenua(vector<int> *vetordaing,int numbuscado,int& conta)
+{
+    conta=0;
+    for(int i=0;i<vetordaing->size().i++)
+    {
+        if(vetordaing[0][i]==numbuscado)
+        {
+            conta++;
+            return vetordaing[0][i];
+        }
+        conta++;
+
+
+        cout<<  conta  <<endl;
+    }
+        return NULL;
+
+}
+
+TEST(Busca,Falhou)
+{
+    int containter=0;
+    
+    vector<int> vetordaing= new vector<int>();
+    
+    for(int i=0;i<700;i++){
+        vetordaing->push_back(rand() % 35000);
+    }
+    EXPECT_FALSE(BuscaIngenua(vetordaing,350100,containter));
+}
+TEST(Busca,Encontrado)
+{
+      int containter=0;
+      vector<int> *vetordaing= new vector<int>();
+      
+      for(int i=0;i<700;i++){
+        vetordaing->push_back(rand() % 35000);
+      }
+      EXPECT_TRUE(BuscaIngenua(vetordaing, vetordaing[0][10],containter));
+      EXPECT_TRUE(BuscaIngenua(vetordaing, vetordaing[0][70],containter));
+      EXPECT_TRUE(BuscaIngenua(vetordaing, vetordaing[0][280],containter));
+      EXPECT_TRUE(BuscaIngenua(vetordaing, vetordaing[0][350],containter));
+      EXPECT_TRUE(BuscaIngenua(vetordaing, vetordaing[0][701],containter));
+}
+
+int main(int argc, char **argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+
+  int containter=0;
+
+  vector<int> *vetordaing= new vector<int>();
+
+  for(int i=0;i<700;i++)
+   {
+    vetordaing->push_back(rand() % 35000);
+   }
+
+   cout<<  vetordaing->size() <<endl;
+
+   BuscaIngenua(vetordaing,vetordaing[0][700],containter);
+}

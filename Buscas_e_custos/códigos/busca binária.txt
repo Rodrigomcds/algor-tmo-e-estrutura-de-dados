@@ -1,0 +1,112 @@
+#include <iostream>
+#include "gtest/gtest.h"
+#include <iostream>
+#include <vector>
+#include <random>
+
+using namespace std;
+
+
+int valori(vector<int> *vetordabin,int numbuscado)
+{
+    int ibuscado;
+    for(int i=0;i<vetordabin->size();i++)
+    {
+        if(vetordabin[0][i] == numbuscado)
+        {
+            ibuscado=i;
+        }
+    }
+    return ibuscado;
+}
+
+void BubbleSort(vector<int> *vetordabin)
+{
+    for(int i=0;i<vetordabin->size();i++)
+    {
+    for(int j=i+1;j<vetordabin->size();j++)
+        {
+        if(vetordabin[0][i]>vetordabin[0][j])
+            {
+            int aux = vetordabin[0][i];
+            vetordabin[0][i] = vetordabin[0][j];
+            vetordabin[0][j] = aux;
+            }
+        }
+    }
+}
+
+int binaria(vector<int> *vetordabin,int vetinic,int vetfim,int vetparabuscar,int &containter)
+{
+    int meio=(vetordabin->size())/2;
+    if(vetinic==vetparabuscar)
+    {
+        containter++;
+        return vetinic;
+    }else if(vetfim==vetparabuscar)
+    {
+      containter++;
+      return vetfim;
+    }
+    int indiceinicial=valori(vetordabin,vetinic);
+    int indicefinal=valori(vetordabin,vetfim);
+
+    while(vetordabin[0][indiceinicial]!=vetordabin[0][meio] && vetordabin[0][indicefinal]!=vetordabin[0][meio])
+    {
+        if(vetordabin[0][meio]==vetparabuscar)
+        {
+            containter++;
+            return vetordabin[0][meio];
+        }
+    
+    
+        else if(vetordabin[0][meio]>vetparabuscar)
+        {
+            containter++;
+            vetfim=vetordabin[0][meio];
+        }
+    else if(vetordabin[0][meio]<vetparabuscar)
+        {
+            containter++;
+            vetinic=vetordabin[0][meio];
+        }
+        indiceinicial=valori(vetordabin,vetinic);
+        indicefinal=valori(vetordabin,vetfim);
+        meio=indiceinicial + ((indicefinal-indiceinicial)/2);
+
+    cout<<containt<<endl;
+    }
+    return NULL;
+}
+
+TEST(Busca,Falhou)
+{
+    vector<int> vetordabin= new vector<int>();
+
+    for(int i=0;i<50000;i++){
+        vetordabin->push_back(rand() % 35000);
+    }
+    EXPECT_FALSE(binaria(vetordabin,vetordabin[0][701],vetordabin[0][2000],vetordabin[0][156],containter));
+    EXPECT_FALSE(binaria(vetordabin,vetordabin[0][940],vetordabin[0][2100],vetordabin[0][148],containter));
+    EXPECT_FALSE(binaria(vetordabin,vetordabin[0][1001],vetordabin[0][2700],vetordabin[0][136],containter));
+    EXPECT_FALSE(binaria(vetordabin,vetordabin[0][888],vetordabin[0][1900],vetordabin[0][188],containter));
+}
+
+int main(int argc, char **argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+
+  int containter=0;
+
+  vector<int> *vetordabin = new vector<int>();
+
+  for(int i=0;i<50000;i++)
+   {
+    vetordabin->push_back(rand() % 35000);
+   }
+
+   cout<< vetordabin->size() <<endl;
+
+   binaria(vetordabin,vetordabin[0][0],vetordabin[0][49999],vetordabin[0][24999],containter);
+}
